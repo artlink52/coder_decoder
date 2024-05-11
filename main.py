@@ -1,19 +1,17 @@
-#!/usr/bin/env python3
-
 import logging
 import sys
 
-from CwrdCoder import CwrdCoder
+from Coder import Coder
 from ConfigException import ConfigException
-from MyConfigReader import MyConfigReader
-from MyFileReader import MyFileReader
+from ConfigReader import ConfigReader
+from FileReader import FileReader
 
 
 class MainClass:
     def __init__(self):
-        self._config_reader: ConfigReader = None
-        self._file_reader: FileReader = None
-        self._coder: Coder = None
+        self._config_reader: ConfigReader = ConfigReader()
+        self._file_reader: FileReader = FileReader()
+        self._coder: Coder = Coder()
 
     def run(self, config_file_name: str) -> str:
         result = ""
@@ -34,6 +32,10 @@ class MainClass:
 
 
 if __name__ == '__main__':
-    argv_config_file_name = input()
+    if len(sys.argv) != 2:
+        print("Your run configuration is incorrect")
+        exit()
+
+    argv_config_file_name = sys.argv[1]
     main_class = MainClass()
     print(main_class.run(argv_config_file_name))
