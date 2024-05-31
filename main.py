@@ -25,7 +25,8 @@ class MainClass:
                 for chunk in chunks:
                     chunk_res = self._coder.run(coder_configuration, chunk)
                     result += chunk_res
-                return result
+                return result, chunks
+
         except ConfigException as e:
             logging.error(e)
             return ""

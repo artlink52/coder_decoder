@@ -7,12 +7,13 @@ class FileReader(FileReaderInterface):
     def read_file(self, file_name: str, buffer_size: int):
         try:
             file = open(file_name, "r")
-            chunks = []
-            chunk = file.read(buffer_size)
-            while len(chunk) > 0:
-                chunks.append(chunk)
-                chunk = file.read(buffer_size)
-            yield chunks
+            def read_chunks():
+                while True:
+                    chunk = file.read(buffer_size)
+                    if not chunk:
+                        break
+                    yield chunk
+            yield read_chunks()
         except FileNotFoundError:
             print("File not found")
         finally:
